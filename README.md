@@ -68,7 +68,7 @@ the code in get_picture would be executed. The standard rack, request and respon
 
 ## What do you think?
 
-ObjectsFramework is still work in progress, there is a lot that can be made better. I would be very to review your pull request, and accept contributions!
+ObjectsFramework is still work in progress, there is a lot that can be made better. I would really like to hear your ideas and opinion.
 
 If you've found some bug, please report via an issue.
 
