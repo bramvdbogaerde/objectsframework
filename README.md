@@ -1,6 +1,7 @@
-ObjectsFramework
-====================
+![Logo](images/logo.png)
 
+
+    
 ObjectsFramework is a HTTP application framework based around objects.
 The idea is that you don't think in pure routes but in objects.
 
