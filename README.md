@@ -40,7 +40,7 @@ _config.ru_
 # In config.ru
 require 'objectsframework'
 
-# Require your other objects (like profile.rb) also here
+# Require your other classes (like profile.rb) here too
 # For example:
 require './profile'
 
