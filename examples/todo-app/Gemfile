@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'rack'
+gem 'thin'
+gem 'objectsframework', :path => "/development/objectsframework"
+gem 'mongo_mapper'

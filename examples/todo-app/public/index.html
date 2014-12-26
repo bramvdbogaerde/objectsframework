@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Todo App - ObjectsFramework</title>
+    <script src="https://rawgit.com/github/fetch/master/fetch.js" ></script>
+    <style>
+      body{
+
+      }
+      #inputbox{
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <input autofocus type="text" id="inputbox" />
+    <ul>
+      <div id="tasks" >
+        Laden...
+      </div>
+    </ul>
+    <script>
+      var inputbox = document.querySelector("#inputbox");
+      var tasksdiv = document.querySelector("#tasks");
+      // Get all tasks
+      fetch("/todo/all").then(function(response){
+        return response.json();
+      }).then(function(todos){
+        tasksdiv.innerHTML = ""
+        for(var taskn in todos){
+          var task = todos[taskn];
+          tasksdiv.innerHTML = tasksdiv.innerHTML + "<br/><li>"+task.content+"</li>"
+        }
+      });
+
+      inputbox.addEventListener("keydown",function(event){
+        if(event.keyCode == 13){
+          var value = inputbox.value;
+          inputbox.value = ""
+          tasksdiv.innerHTML = tasksdiv.innerHTML+"<br/><li>"+value+"</li>"
+          fetch("/todo/save",{method: "POST",body: JSON.stringify({content: value})}).then(function(response){
+            return response.json();
+          }).then(function(json){
+            console.log(json);
+            return fetch("/todo/all");
+          }).then(function(response){
+            return response.json();
+          }).then(function(json){
+            tasksdiv.innerHTML = ""
+            for(var taskn in json){
+              var task = json[taskn];
+              tasksdiv.innerHTML = tasksdiv.innerHTML + "<br/><li>"+task.content+"</li>"
+            }
+          }).catch(function(error){
+            console.log(error);
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
