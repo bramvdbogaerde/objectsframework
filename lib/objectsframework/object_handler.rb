@@ -4,9 +4,13 @@ module ObjectsFramework
       path = request.path
       parts = path.split("/")
       begin
-        klass = Object.const_get(parts[1].capitalize).new(request,response)
+        klass = Object.const_get(parts[1].capitalize).new.set_instance_variables(request,response)
         if(parts[3].nil?)
-          klass.send(request.request_method.downcase!+"_"+parts[2])
+          if(path[path.length-1] == "/")
+            klass.send(request.request_method.downcase!+"_index");
+          else
+            klass.send(request.request_method.downcase!+"_"+parts[2])
+          end
         else
           klass.send(request.request_method.downcase!+"_"+parts[2],parts[3..parts.length])
         end

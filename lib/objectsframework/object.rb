@@ -1,7 +1,8 @@
 module ObjectsFramework
   class Object
-      def initialize(request,response)
+      def set_instance_variables(request,response)
         @request,@response = request,response
+        return self;
       end
 
       def request
