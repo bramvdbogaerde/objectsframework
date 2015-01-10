@@ -1,7 +1,9 @@
 module ObjectsFramework
   class Server
-    def initialize
+    attr_accessor :config
 
+    def initialize(config = {})
+      @config = {:index_method => "index"}.merge(config)
     end
 
     def call(env)
@@ -12,7 +14,7 @@ module ObjectsFramework
       response.length = 0
       # Set text/html as Content-type by default
       response.header["Content-type"] = "text/html"
-      ObjectsFramework::ObjectHandler.run_methods(request,response);
+      ObjectsFramework::ObjectHandler.run_methods(request,response,self);
       response.finish
     end
 

@@ -1,12 +1,17 @@
 module ObjectsFramework
   class ObjectHandler
-    def self.run_methods(request,response)
+    def self.run_methods(request,response,context)
       path = request.path
       parts = path.split("/")
+      if(path == "/" && !context.config[:root].nil?)
+        klass = Object.const_get(context.config[:root]).new.set_instance_variables(request,response).send(request.request_method.downcase!+"_"+context.config[:index_method])
+        return
+      end
+
       begin
         klass = Object.const_get(parts[1].capitalize).new.set_instance_variables(request,response)
-        if(parts[3].nil?)
-          if(path[path.length-1] == "/")
+        if(parts[3].nil?)        
+          if(path[path.length-1] == "/" || parts.length == 2)
             klass.send(request.request_method.downcase!+"_index");
           else
             klass.send(request.request_method.downcase!+"_"+parts[2])
