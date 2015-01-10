@@ -4,4 +4,4 @@ require './todo'
 require './db'
 require './app'
 
-run ObjectsFramework::Server.new
+run ObjectsFramework::Server.new({:root => "App"})
