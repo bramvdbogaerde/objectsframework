@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'objectsframework'
-  s.version     = '1.0.4'
+  s.version     = '1.0.5'
   s.licenses    = ['MIT']
   s.summary     = "HTTP routes based on objects"
   s.description = "Very simple http application framework, no special extras, just the basics. More documentation is coming!"
