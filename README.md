@@ -67,7 +67,7 @@ the code in get_picture would be executed. The standard rack, request and respon
 
 ## FAQ
 
-__What if I send the request "GET /app/" what instance method would be executed?__    
+__What if I send the request "GET /app/" what instance method would be executed?__
 The method called get_index, instance method of App, would be executed. I'm working on a setting where you can set what happens when a request is sent to "/".
 
 ## What do you think?
