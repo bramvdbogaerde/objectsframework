@@ -1,7 +1,7 @@
 PATH
   remote: /development/objectsframework
   specs:
-    objectsframework (1.0.6)
+    objectsframework (1.1.1)
       rack (~> 1.6.0)
       thin (~> 1.6.3)
 
