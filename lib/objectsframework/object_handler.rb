@@ -31,6 +31,14 @@ module ObjectsFramework
           klass.send(request.request_method.downcase!+"_"+parts[2],parts[3..parts.length])
         end
       rescue Exception => e
+        begin
+          p "Trying"
+          obj = Object.const_get(context.config[:root]).new.set_instance_variables(request,response)
+          obj.send(request.request_method.downcase!+"_"+parts[1])
+          return
+        rescue
+
+        end
         response.status =  404
         notfound_response(response,e)
       end
