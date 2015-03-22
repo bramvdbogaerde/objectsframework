@@ -9,7 +9,6 @@ module ObjectsFramework
       parts = path.split("/")
       if(path == "/" && !context.config[:root].nil?)
         klass = Object.const_get(context.config[:root]).new
-        puts "Finishing up"
         finished(klass,request,response,context);
 
         klass.set_instance_variables(request,response).send(request.request_method.downcase!+"_"+context.config[:index_method])
