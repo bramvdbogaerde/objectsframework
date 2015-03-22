@@ -32,7 +32,6 @@ module ObjectsFramework
         end
       rescue Exception => e
         begin
-          p "Trying"
           obj = Object.const_get(context.config[:root]).new.set_instance_variables(request,response)
           obj.send(request.request_method.downcase!+"_"+parts[1])
           return
