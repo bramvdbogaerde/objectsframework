@@ -17,6 +17,5 @@ module ObjectsFramework
       ObjectsFramework::ObjectHandler.run_methods(request,response,self);
       response.finish
     end
-
   end
 end

@@ -1,5 +1,7 @@
 module ObjectsFramework
   class ObjectHandler
+    # DEPRACTED: do not override the ObjectHandler class anymore use object hooks
+    # This event will never be used again
     def self.finished(klass,request,response,context)
       # Nothing
     end
@@ -9,7 +11,8 @@ module ObjectsFramework
       parts = path.split("/")
       if(path == "/" && !context.config[:root].nil?)
         klass = Object.const_get(context.config[:root]).new
-        finished(klass,request,response,context);
+
+        Hooks.fire("object.before_execute", klass)
 
         klass.set_instance_variables(request,response).send(request.request_method.downcase!+"_"+context.config[:index_method])
         return
@@ -17,8 +20,8 @@ module ObjectsFramework
 
       begin
         klass = Object.const_get(parts[1].capitalize).new.set_instance_variables(request,response)
-        puts "Finishing up"
-        finished(klass,request,response,context);
+
+        Hooks.fire("object.before_execute", klass)
 
         if(parts[3].nil?)
           if(path[path.length-1] == "/" || parts.length == 2)
@@ -27,11 +30,12 @@ module ObjectsFramework
             klass.send(request.request_method.downcase!+"_"+parts[2])
           end
         else
-          klass.send(request.request_method.downcase!+"_"+parts[2],parts[3..parts.length])
+          klass.send(request.request_method.downcase!+"_"+parts[2],*parts[3..parts.length])
         end
       rescue Exception => e
         begin
           obj = Object.const_get(context.config[:root]).new.set_instance_variables(request,response)
+          Hooks.fire("object.before_execute", obj)
           obj.send(request.request_method.downcase!+"_"+parts[1])
           return
         rescue
