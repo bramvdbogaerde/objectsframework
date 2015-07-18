@@ -14,8 +14,12 @@ module ObjectsFramework
       response.length = 0
       # Set text/html as Content-type by default
       response.header["Content-type"] = "text/html"
-      ObjectsFramework::ObjectHandler.run_methods(request,response,self);
-      response.finish
+      handler = ObjectsFramework::ObjectHandler.run_methods(request,response,self)
+      if(handler === true)
+        response.finish
+      else
+        return handler
+      end
     end
   end
 end
