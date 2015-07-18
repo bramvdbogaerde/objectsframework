@@ -11,6 +11,7 @@ module ObjectsFramework
       parts = path.split("/")
       if(path == "/" && !context.config[:root].nil?)
         klass = Object.const_get(context.config[:root]).new
+        klass.set_instance_variables(request,response,context.env)
 
         captured_result = captured?(klass)
         if(captured_result != 0)
@@ -19,7 +20,7 @@ module ObjectsFramework
 
         Hooks.fire("object.before_execute", klass)
 
-        klass.set_instance_variables(request,response,context.env).send(request.request_method.downcase!+"_"+context.config[:index_method])
+        klass.send(request.request_method.downcase!+"_"+context.config[:index_method])
         return true
       end
 
