@@ -1,12 +1,13 @@
 module ObjectsFramework
   class Server
-    attr_accessor :config
+    attr_accessor :config, :env
 
     def initialize(config = {})
       @config = {:index_method => "index"}.merge(config)
     end
 
     def call(env)
+      @env = env
       request = Rack::Request.new(env)
       response = Rack::Response.new(env)
       # Solves some weird bug where ENV is added to the response body

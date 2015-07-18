@@ -19,12 +19,12 @@ module ObjectsFramework
 
         Hooks.fire("object.before_execute", klass)
 
-        klass.set_instance_variables(request,response).send(request.request_method.downcase!+"_"+context.config[:index_method])
+        klass.set_instance_variables(request,response,context.env).send(request.request_method.downcase!+"_"+context.config[:index_method])
         return true
       end
 
       begin
-        klass = Object.const_get(parts[1].capitalize).new.set_instance_variables(request,response)
+        klass = Object.const_get(parts[1].capitalize).new.set_instance_variables(request,response,context.env)
 
         captured_result = captured?(klass)
         if(captured_result != 0)
@@ -44,7 +44,7 @@ module ObjectsFramework
         end
       rescue Exception => e
         begin
-          obj = Object.const_get(context.config[:root]).new.set_instance_variables(request,response)
+          obj = Object.const_get(context.config[:root]).new.set_instance_variables(request,response,context.env)
 
           captured_result = captured?(obj)
           if(captured_result != 0)
